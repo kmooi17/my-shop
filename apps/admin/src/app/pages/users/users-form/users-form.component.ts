@@ -147,7 +147,7 @@ export class UsersFormComponent implements OnInit {
     }
   }
 
-  onCancle() {
+  onCancel() {
     this.location.back();
   }
 

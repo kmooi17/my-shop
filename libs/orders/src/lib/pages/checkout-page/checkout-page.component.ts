@@ -15,6 +15,13 @@ import { OrdersService } from '../../services/orders.service';
   templateUrl: './checkout-page.component.html'
 })
 export class CheckoutPageComponent implements OnInit, OnDestroy {
+  checkoutFormGroup: FormGroup;
+  isSubmitted = false;
+  orderItems: OrderItem[] = [];
+  userId: string;
+  countries = [];
+  unsubscribe$: Subject<any> = new Subject();
+
   constructor(
     private router: Router,
     private usersService: UsersService,
@@ -22,12 +29,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private ordersService: OrdersService
   ) {}
-  checkoutFormGroup: FormGroup;
-  isSubmitted = false;
-  orderItems: OrderItem[] = [];
-  userId: string;
-  countries = [];
-  unsubscribe$: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this._initCheckoutForm();
@@ -110,16 +111,14 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       dateOrdered: `${Date.now()}`
     };
 
-    this.ordersService.createOrder(order).subscribe(
-      () => {
-        //redirect to thank you page // payment
-        this.cartService.emptyCart();
-        this.router.navigate(['/success']);
-      },
-      () => {
-        //display some message to user
+    this.ordersService.setCacheOrderData(order);
+
+    this.ordersService.createCheckoutSession(this.orderItems).subscribe((error) => {
+      if (error) {
+        console.log(`Error in redirecting to payment: ${error}`);
+        this.ordersService.removeCacheOrderData();
       }
-    );
+    });
   }
 
   get checkoutForm() {

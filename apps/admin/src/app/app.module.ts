@@ -38,6 +38,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxStripeModule } from 'ngx-stripe';
 
 const UX_MODULE = [
   CardModule,
@@ -83,7 +84,11 @@ const UX_MODULE = [
     FormsModule,
     ReactiveFormsModule,
     UsersModule,
-    ...UX_MODULE
+    ...UX_MODULE,
+    // TODO: Get this from env
+    NgxStripeModule.forRoot(
+      'pk_test_51LyiMiIX9ERqxQ2tkdrJPOJGobMIl5Wdi4A1fahWW47PukDO0DMsn8wWwc4beI5PGBEZtrzf48s1iuWWhkTHnq2M00YgfUqXUu'
+    )
   ],
   providers: [
     CategoriesService,

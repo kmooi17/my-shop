@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { User, UsersService } from '@hast/users';
+import { LocalstorageService, User, UsersService } from '@hast/users';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -17,6 +17,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   constructor(
     private usersService: UsersService,
     private messageService: MessageService,
+    private localstorageService: LocalstorageService,
     private confirmationService: ConfirmationService,
     private router: Router
   ) {}
@@ -73,7 +74,8 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .getUsers()
       .pipe(takeUntil(this.endsubs$))
       .subscribe((users) => {
-        this.users = users;
+        const userId = this.localstorageService.getUserIdFromToken();
+        this.users = users.filter((user) => user.id !== userId);
       });
   }
 }

@@ -157,7 +157,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
       this._addProduct(productFormData);
     }
   }
-  onCancle() {
+  onCancel() {
     this.location.back();
   }
 

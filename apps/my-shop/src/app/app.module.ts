@@ -19,6 +19,7 @@ import { MessageService } from 'primeng/api';
 import { JwtInterceptor, UsersModule } from '@hast/users';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxStripeModule } from 'ngx-stripe';
 
 const routes: Routes = [{ path: '', component: HomePageComponent }];
 
@@ -43,7 +44,11 @@ const routes: Routes = [{ path: '', component: HomePageComponent }];
     UiModule,
     OrdersModule,
     ToastModule,
-    UsersModule
+    UsersModule,
+    // TODO: Get this from env
+    NgxStripeModule.forRoot(
+      'pk_test_51LyiMiIX9ERqxQ2tkdrJPOJGobMIl5Wdi4A1fahWW47PukDO0DMsn8wWwc4beI5PGBEZtrzf48s1iuWWhkTHnq2M00YgfUqXUu'
+    )
   ],
   providers: [
     MessageService,

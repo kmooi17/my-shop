@@ -59,7 +59,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "my-shop:build",
-            "port": 4201
+            "port": 4200
           },
           "configurations": {
             "production": {
@@ -151,7 +151,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "admin:build",
-            "port": 4200
+            "port": 4201
           },
           "configurations": {
             "production": {

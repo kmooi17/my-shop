@@ -8,6 +8,8 @@ import { LocalstorageService } from './localstorage.service';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router, private localStorageToken: LocalstorageService) {}
 
+  // TODO: Create roles guard to fix checkout login bug
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const token = this.localStorageToken.getToken();
 
