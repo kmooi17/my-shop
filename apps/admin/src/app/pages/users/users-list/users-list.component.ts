@@ -12,23 +12,19 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class UsersListComponent implements OnInit, OnDestroy {
   users: User[] = [];
-  endsubs$: Subject<any> = new Subject();
+
+  private _endsubs$: Subject<void> = new Subject();
 
   constructor(
-    private usersService: UsersService,
-    private messageService: MessageService,
-    private localstorageService: LocalstorageService,
     private confirmationService: ConfirmationService,
-    private router: Router
+    private localstorageService: LocalstorageService,
+    private messageService: MessageService,
+    private router: Router,
+    private usersService: UsersService
   ) {}
 
   ngOnInit(): void {
     this._getUsers();
-  }
-
-  ngOnDestroy() {
-    this.endsubs$.next();
-    this.endsubs$.complete();
   }
 
   deleteUser(userId: string) {
@@ -39,7 +35,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       accept: () => {
         this.usersService
           .deleteUser(userId)
-          .pipe(takeUntil(this.endsubs$))
+          .pipe(takeUntil(this._endsubs$))
           .subscribe(
             () => {
               this._getUsers();
@@ -65,6 +61,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`users/form/${userid}`);
   }
 
+  // TODO: Remove country everywhere
   getCountryName(countryKey: string) {
     if (countryKey) return this.usersService.getCountry(countryKey);
   }
@@ -72,10 +69,15 @@ export class UsersListComponent implements OnInit, OnDestroy {
   private _getUsers() {
     this.usersService
       .getUsers()
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this._endsubs$))
       .subscribe((users) => {
         const userId = this.localstorageService.getUserIdFromToken();
         this.users = users.filter((user) => user.id !== userId);
       });
+  }
+
+  ngOnDestroy() {
+    this._endsubs$.next();
+    this._endsubs$.complete();
   }
 }

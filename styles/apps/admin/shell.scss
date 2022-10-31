@@ -36,6 +36,10 @@
           list-style: none;
           width: 100%;
 
+          &.logout-link {
+            cursor: pointer;
+          }
+
           a {
             color: var(--surface-a);
             padding: 10px 15px;

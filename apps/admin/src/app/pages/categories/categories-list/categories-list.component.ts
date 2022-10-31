@@ -4,6 +4,7 @@ import { CategoriesService, Category } from '@hast/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'admin-categories-list',
   templateUrl: './categories-list.component.html',
@@ -11,21 +12,18 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class CategoriesListComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
-  endsubs$: Subject<any> = new Subject();
+
+  private _endsubs$: Subject<void> = new Subject();
 
   constructor(
     private categoriesService: CategoriesService,
-    private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this._getCategories();
-  }
-  ngOnDestroy() {
-    this.endsubs$.next();
-    this.endsubs$.complete();
   }
 
   deleteCategory(categoryId: string) {
@@ -36,7 +34,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       accept: () => {
         this.categoriesService
           .deleteCategory(categoryId)
-          .pipe(takeUntil(this.endsubs$))
+          .pipe(takeUntil(this._endsubs$))
           .subscribe(
             () => {
               this._getCategories();
@@ -65,9 +63,14 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   private _getCategories() {
     this.categoriesService
       .getCategories()
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this._endsubs$))
       .subscribe((cats) => {
         this.categories = cats;
       });
+  }
+
+  ngOnDestroy() {
+    this._endsubs$.next();
+    this._endsubs$.complete();
   }
 }

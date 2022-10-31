@@ -13,17 +13,22 @@ import { takeUntil } from 'rxjs/operators';
   styles: []
 })
 export class CategoriesFormComponent implements OnInit, OnDestroy {
+  currentCategoryId: string;
+  editmode = false;
   form: FormGroup;
   isSubmitted = false;
-  editmode = false;
-  currentCategoryId: string;
-  endsubs$: Subject<any> = new Subject();
+
+  private _endsubs$: Subject<void> = new Subject();
+
+  get categoryForm() {
+    return this.form.controls;
+  }
 
   constructor(
-    private messageService: MessageService,
-    private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
+    private formBuilder: FormBuilder,
     private location: Location,
+    private messageService: MessageService,
     private route: ActivatedRoute
   ) {}
 
@@ -31,15 +36,10 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       icon: ['', Validators.required],
-      color: ['#fff']
+      color: ['#808080']
     });
 
     this._checkEditMode();
-  }
-
-  ngOnDestroy() {
-    this.endsubs$.next();
-    this.endsubs$.complete();
   }
 
   onSubmit() {
@@ -47,17 +47,15 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+
     const category: Category = {
       id: this.currentCategoryId,
       name: this.categoryForm.name.value,
       icon: this.categoryForm.icon.value,
       color: this.categoryForm.color.value
     };
-    if (this.editmode) {
-      this._updateCategory(category);
-    } else {
-      this._addCategory(category);
-    }
+
+    this.editmode ? this._updateCategory(category) : this._addCategory(category);
   }
 
   onCancel() {
@@ -67,7 +65,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   private _addCategory(category: Category) {
     this.categoriesService
       .createCategory(category)
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this._endsubs$))
       .subscribe(
         (category: Category) => {
           this.messageService.add({
@@ -75,7 +73,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
             summary: 'Success',
             detail: `Category ${category.name} is created!`
           });
-          timer(2000)
+          timer(1000)
             .toPromise()
             .then(() => {
               this.location.back();
@@ -94,7 +92,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   private _updateCategory(category: Category) {
     this.categoriesService
       .updateCategory(category)
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this._endsubs$))
       .subscribe(
         () => {
           this.messageService.add({
@@ -102,7 +100,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
             summary: 'Success',
             detail: 'Category is updated!'
           });
-          timer(2000)
+          timer(1000)
             .toPromise()
             .then(() => {
               this.location.back();
@@ -119,13 +117,14 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   private _checkEditMode() {
-    this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
+    this.route.params.pipe(takeUntil(this._endsubs$)).subscribe((params) => {
       if (params.id) {
         this.editmode = true;
         this.currentCategoryId = params.id;
+
         this.categoriesService
           .getCategory(params.id)
-          .pipe(takeUntil(this.endsubs$))
+          .pipe(takeUntil(this._endsubs$))
           .subscribe((category) => {
             this.categoryForm.name.setValue(category.name);
             this.categoryForm.icon.setValue(category.icon);
@@ -135,7 +134,8 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  get categoryForm() {
-    return this.form.controls;
+  ngOnDestroy() {
+    this._endsubs$.next();
+    this._endsubs$.complete();
   }
 }

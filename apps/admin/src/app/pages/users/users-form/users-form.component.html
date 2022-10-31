@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+
 <div class="admin-page">
   <p-card [header]="editmode ? 'Edit User' : 'Add User'" subheader="You can add or edit users here">
     <div class="p-grid p-mb-5">
@@ -22,6 +23,7 @@
         </p-toolbar>
       </div>
     </div>
+
     <div class="p-grid">
       <div class="p-col-12">
         <form [formGroup]="form">
@@ -37,8 +39,8 @@
               <label for="email">Email</label>
               <input formControlName="email" id="email" type="text" pInputText />
               <small *ngIf="userForm.email.invalid && isSubmitted" class="p-error"
-                ><span *ngIf="userForm.email.errors.required">email is required</span>
-                <span *ngIf="userForm.email.errors.email">email is invalid</span></small
+                ><span *ngIf="userForm.email.errors.required">Email is required</span>
+                <span *ngIf="userForm.email.errors.email">Email is invalid</span></small
               >
             </div>
             <div class="p-field p-col-4">
@@ -56,7 +58,7 @@
                 placeholder="(999) 999-9999"
               ></p-inputMask>
               <small *ngIf="userForm.phone.invalid && isSubmitted" class="p-error"
-                >phone is required</small
+                >Phone is required</small
               >
             </div>
             <div class="p-field p-col-4">

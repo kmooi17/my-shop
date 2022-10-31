@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { OrdersService } from '@hast/orders';
 import { ProductsService } from '@hast/products';
 import { UsersService } from '@hast/users';
+
 import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -11,12 +13,13 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   statistics = [];
-  endsubs$: Subject<any> = new Subject();
+
+  private _endsubs$: Subject<void> = new Subject();
 
   constructor(
-    private userService: UsersService,
+    private ordersService: OrdersService,
     private productService: ProductsService,
-    private ordersService: OrdersService
+    private userService: UsersService
   ) {}
 
   ngOnInit(): void {
@@ -26,14 +29,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.userService.getUsersCount(),
       this.ordersService.getTotalSales()
     ])
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this._endsubs$))
       .subscribe((values) => {
         this.statistics = values;
       });
   }
 
   ngOnDestroy() {
-    this.endsubs$.next();
-    this.endsubs$.complete();
+    this._endsubs$.next();
+    this._endsubs$.complete();
   }
 }

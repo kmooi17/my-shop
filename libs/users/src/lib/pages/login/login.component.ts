@@ -11,27 +11,25 @@ import { LocalstorageService } from '../../services/localstorage.service';
   styles: []
 })
 export class LoginComponent implements OnInit {
+  // TODO: Add register page
+  authError = false;
+  authMessage = 'Email or Password are incorrect';
   loginFormGroup: FormGroup;
   isSubmitted = false;
-  authError = false;
-  authMessage = 'Email or Password are wrong';
+
+  get loginForm() {
+    return this.loginFormGroup.controls;
+  }
 
   constructor(
-    private formBuilder: FormBuilder,
     private auth: AuthService,
+    private formBuilder: FormBuilder,
     private localstorageService: LocalstorageService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this._initLoginForm();
-  }
-
-  private _initLoginForm() {
-    this.loginFormGroup = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
   }
 
   onSubmit() {
@@ -48,13 +46,16 @@ export class LoginComponent implements OnInit {
       (error: HttpErrorResponse) => {
         this.authError = true;
         if (error.status !== 400) {
-          this.authMessage = 'Error in the Server, please try again later!';
+          this.authMessage = 'Error occured in the server, please try again later.';
         }
       }
     );
   }
 
-  get loginForm() {
-    return this.loginFormGroup.controls;
+  private _initLoginForm() {
+    this.loginFormGroup = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 }

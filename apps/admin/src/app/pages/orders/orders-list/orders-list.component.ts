@@ -13,30 +13,18 @@ import { takeUntil } from 'rxjs/operators';
 export class OrdersListComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   orderStatus = ORDER_STATUS;
-  endsubs$: Subject<any> = new Subject();
+
+  private _endsubs$: Subject<void> = new Subject();
 
   constructor(
-    private ordersService: OrdersService,
-    private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private ordersService: OrdersService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this._getOrders();
-  }
-  ngOnDestroy() {
-    this.endsubs$.next();
-    this.endsubs$.complete();
-  }
-
-  _getOrders() {
-    this.ordersService
-      .getOrders()
-      .pipe(takeUntil(this.endsubs$))
-      .subscribe((orders) => {
-        this.orders = orders;
-      });
   }
 
   showOrder(orderId) {
@@ -51,7 +39,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       accept: () => {
         this.ordersService
           .deleteOrder(orderId)
-          .pipe(takeUntil(this.endsubs$))
+          .pipe(takeUntil(this._endsubs$))
           .subscribe(
             () => {
               this._getOrders();
@@ -71,5 +59,19 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           );
       }
     });
+  }
+
+  private _getOrders() {
+    this.ordersService
+      .getOrders()
+      .pipe(takeUntil(this._endsubs$))
+      .subscribe((orders) => {
+        this.orders = orders;
+      });
+  }
+
+  ngOnDestroy() {
+    this._endsubs$.next();
+    this._endsubs$.complete();
   }
 }

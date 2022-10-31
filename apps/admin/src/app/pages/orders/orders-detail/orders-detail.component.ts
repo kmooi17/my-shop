@@ -14,11 +14,12 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
   order: Order;
   orderStatuses = [];
   selectedStatus: any;
-  endsubs$: Subject<any> = new Subject();
+
+  private _endsubs$: Subject<void> = new Subject();
 
   constructor(
-    private orderService: OrdersService,
     private messageService: MessageService,
+    private orderService: OrdersService,
     private route: ActivatedRoute
   ) {}
 
@@ -27,38 +28,10 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
     this._getOrder();
   }
 
-  ngOnDestroy() {
-    this.endsubs$.next();
-    this.endsubs$.complete();
-  }
-
-  private _mapOrderStatus() {
-    this.orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
-      return {
-        id: key,
-        name: ORDER_STATUS[key].label
-      };
-    });
-  }
-
-  private _getOrder() {
-    this.route.params.subscribe((params) => {
-      if (params.id) {
-        this.orderService
-          .getOrder(params.id)
-          .pipe(takeUntil(this.endsubs$))
-          .subscribe((order) => {
-            this.order = order;
-            this.selectedStatus = order.status;
-          });
-      }
-    });
-  }
-
   onStatusChange(event) {
     this.orderService
       .updateOrder({ status: event.value }, this.order.id)
-      .pipe(takeUntil(this.endsubs$))
+      .pipe(takeUntil(this._endsubs$))
       .subscribe(
         () => {
           this.messageService.add({
@@ -75,5 +48,33 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
           });
         }
       );
+  }
+
+  private _mapOrderStatus() {
+    this.orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
+      return {
+        id: key,
+        name: ORDER_STATUS[key].label
+      };
+    });
+  }
+
+  private _getOrder() {
+    this.route.params.subscribe((params) => {
+      if (params.id) {
+        this.orderService
+          .getOrder(params.id)
+          .pipe(takeUntil(this._endsubs$))
+          .subscribe((order) => {
+            this.order = order;
+            this.selectedStatus = order.status;
+          });
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this._endsubs$.next();
+    this._endsubs$.complete();
   }
 }
