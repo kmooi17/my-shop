@@ -26,10 +26,10 @@ export class UsersFormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private location: Location,
     private messageService: MessageService,
-    private route: ActivatedRoute,
     private usersService: UsersService
   ) {}
 
@@ -140,7 +140,7 @@ export class UsersFormComponent implements OnInit, OnDestroy {
   }
 
   private _checkEditMode() {
-    this.route.params.pipe(takeUntil(this._endsubs$)).subscribe((params) => {
+    this.activatedRoute.params.pipe(takeUntil(this._endsubs$)).subscribe((params) => {
       if (params.id) {
         this.editmode = true;
         this.currentUserId = params.id;

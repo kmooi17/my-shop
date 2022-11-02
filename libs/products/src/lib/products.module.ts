@@ -1,19 +1,31 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrdersModule } from '@hast/orders';
-import { ProductsSearchComponent } from './components/products-search/products-search.component';
-import { CategoriesBannerComponent } from './components/categories-banner/categories-banner.component';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+
+import { OrdersModule } from '@hast/orders';
+import { UiModule } from '@hast/ui';
+
+import { CategoriesBannerComponent } from './components/categories-banner/categories-banner.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
+import { ProductsSearchComponent } from './components/products-search/products-search.component';
 import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { ProductsListComponent } from './pages/products-list/products-list.component';
+
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { RatingModule } from 'primeng/rating';
-import { ProductsListComponent } from './pages/products-list/products-list.component';
-import { FormsModule } from '@angular/forms';
-import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { UiModule } from '@hast/ui';
+import { RatingModule } from 'primeng/rating';
+
+const PRODUCTS_COMPONENTS = [
+  CategoriesBannerComponent,
+  FeaturedProductsComponent,
+  ProductItemComponent,
+  ProductPageComponent,
+  ProductsListComponent,
+  ProductsSearchComponent
+];
 
 const routes: Routes = [
   {
@@ -29,33 +41,20 @@ const routes: Routes = [
     component: ProductPageComponent
   }
 ];
+
 @NgModule({
   imports: [
-    CommonModule,
-    OrdersModule,
-    RouterModule.forChild(routes),
     ButtonModule,
     CheckboxModule,
+    CommonModule,
     FormsModule,
-    RatingModule,
     InputNumberModule,
+    OrdersModule,
+    RatingModule,
+    RouterModule.forChild(routes),
     UiModule
   ],
-  declarations: [
-    ProductsSearchComponent,
-    CategoriesBannerComponent,
-    ProductItemComponent,
-    FeaturedProductsComponent,
-    ProductsListComponent,
-    ProductPageComponent
-  ],
-  exports: [
-    ProductsSearchComponent,
-    CategoriesBannerComponent,
-    ProductItemComponent,
-    FeaturedProductsComponent,
-    ProductsListComponent,
-    ProductPageComponent
-  ]
+  declarations: [PRODUCTS_COMPONENTS],
+  exports: [PRODUCTS_COMPONENTS]
 })
 export class ProductsModule {}

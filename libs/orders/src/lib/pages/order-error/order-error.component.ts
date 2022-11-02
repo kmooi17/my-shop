@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { CartService } from '../../services/cart.service';
 import { OrdersService } from '../../services/orders.service';
 
 @Component({
@@ -8,7 +7,7 @@ import { OrdersService } from '../../services/orders.service';
   styleUrls: ['./order-error.component.scss']
 })
 export class OrderErrorComponent implements OnDestroy {
-  constructor(private orderService: OrdersService, private cartService: CartService) {}
+  constructor(private orderService: OrdersService) {}
 
   ngOnDestroy(): void {
     this.orderService.removeCacheOrderData();

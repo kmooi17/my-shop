@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+import { environment } from '@env/environment';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { User } from '../models/user';
-import { environment } from '@env/environment';
-import * as countriesLib from 'i18n-iso-countries';
 import { UsersFacade } from '../state/users.facade';
+
+import * as countriesLib from 'i18n-iso-countries';
 declare const require;
 
 @Injectable({

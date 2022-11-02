@@ -2,6 +2,7 @@
   <div class="p-grid">
     <div class="p-col-3" *ngIf="!isCategoryPage">
       <h4>Categories</h4>
+
       <div class="p-field-checkbox" *ngFor="let category of categories">
         <p-checkbox
           [(ngModel)]="category.checked"
@@ -12,6 +13,7 @@
         <label for="{{ category.id }}">{{ category.name }}</label>
       </div>
     </div>
+
     <div [ngClass]="{ 'p-col-9': !isCategoryPage, 'p-col-12': isCategoryPage }">
       <div class="p-grid" *ngIf="products">
         <div

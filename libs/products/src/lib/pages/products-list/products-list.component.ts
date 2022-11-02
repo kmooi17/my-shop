@@ -11,22 +11,31 @@ import { ProductsService } from '../../services/products.service';
   styles: []
 })
 export class ProductsListComponent implements OnInit {
-  products: Product[] = [];
   categories: Category[] = [];
   isCategoryPage: boolean;
+  products: Product[] = [];
 
   constructor(
-    private prodService: ProductsService,
+    private activatedRoute: ActivatedRoute,
     private catService: CategoriesService,
-    private route: ActivatedRoute
+    private prodService: ProductsService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       params.categoryid ? this._getProducts([params.categoryid]) : this._getProducts();
       params.categoryid ? (this.isCategoryPage = true) : (this.isCategoryPage = false);
     });
+
     this._getCategories();
+  }
+
+  categoryFilter() {
+    const selectedCategories = this.categories
+      .filter((category) => category.checked)
+      .map((category) => category.id);
+
+    this._getProducts(selectedCategories);
   }
 
   private _getProducts(categoriesFilter?: string[]) {
@@ -39,13 +48,5 @@ export class ProductsListComponent implements OnInit {
     this.catService.getCategories().subscribe((resCats) => {
       this.categories = resCats;
     });
-  }
-
-  categoryFilter() {
-    const selectedCategories = this.categories
-      .filter((category) => category.checked)
-      .map((category) => category.id);
-
-    this._getProducts(selectedCategories);
   }
 }

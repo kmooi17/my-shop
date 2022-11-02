@@ -27,12 +27,12 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private categoriesService: CategoriesService,
     private formBuilder: FormBuilder,
     private location: Location,
     private messageService: MessageService,
     private productsService: ProductsService,
-    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -150,7 +150,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
   }
 
   private _checkEditMode() {
-    this.route.params.pipe(takeUntil(this._endsubs$)).subscribe((params) => {
+    this.activatedRoute.params.pipe(takeUntil(this._endsubs$)).subscribe((params) => {
       if (params.id) {
         this.editmode = true;
         this.currentProductId = params.id;

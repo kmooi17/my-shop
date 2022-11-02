@@ -7,7 +7,7 @@ export class Order {
   shippingAddress2?: string;
   city?: string;
   zip?: string;
-  country?: string;
+  country?: string; // TODO: Remove this everywhere
   phone?: string;
   status?: number;
   totalPrice?: string;

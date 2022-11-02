@@ -3,18 +3,22 @@
     <div class="p-col-6">
       <ui-gallery [images]="product.images"></ui-gallery>
     </div>
+
     <div class="p-col-6 product">
       <h2 class="product-name">{{ product.name }}</h2>
       <p class="product-desc">
         {{ product.description }}
       </p>
+
       <div class="product-rating">
         <p-rating [(ngModel)]="product.rating" [cancel]="false" [disabled]="true"></p-rating>
       </div>
+
       <div class="product-price">
         {{ product.price | currency: 'ZAR' }}
         <span class="price-before">{{ product.price + 150 | currency: 'ZAR' }}</span>
       </div>
+
       <div class="product-quantity">
         <div class="p-field p-col-12 p-md-3 p-p-0">
           <label for="quantity">Quantity</label>
@@ -29,14 +33,8 @@
           </p-inputNumber>
         </div>
       </div>
+
       <div class="product-actions">
-        <button
-          pButton
-          pRipple
-          type="button"
-          label="Buy Now"
-          class="p-button-rounded p-mr-2"
-        ></button>
         <button
           pButton
           pRipple
@@ -48,6 +46,7 @@
       </div>
     </div>
   </div>
+
   <div class="p-grid product-rich-desc">
     <div class="p-col-12">
       <div [innerHTML]="product.richDescription"></div>

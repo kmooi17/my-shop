@@ -2,6 +2,7 @@
   <div>
     <p-button label="Back to cart" icon="pi pi-arrow-left" (onClick)="backToCart()"></p-button>
   </div>
+
   <div class="p-grid checkout-form">
     <div class="p-col-8">
       <form [formGroup]="checkoutFormGroup">
@@ -13,14 +14,16 @@
               >Name is required</small
             >
           </div>
+
           <div class="p-field p-col-4">
             <label for="email">Email</label>
             <input formControlName="email" id="email" type="text" pInputText />
             <small *ngIf="checkoutForm.email.invalid && isSubmitted" class="p-error"
-              ><span *ngIf="checkoutForm.email.errors.required">email is required</span>
-              <span *ngIf="checkoutForm.email.errors.email">email is invalid</span></small
+              ><span *ngIf="checkoutForm.email.errors.required">Email is required</span>
+              <span *ngIf="checkoutForm.email.errors.email">Email is invalid</span></small
             >
           </div>
+
           <div class="p-field p-col-4">
             <label for="color">Phone</label><br />
             <p-inputMask
@@ -29,10 +32,11 @@
               placeholder="(999) 999-9999"
             ></p-inputMask>
             <small *ngIf="checkoutForm.phone.invalid && isSubmitted" class="p-error"
-              >phone is required</small
+              >Phone is required</small
             >
           </div>
         </div>
+
         <div class="p-fluid p-formgrid p-grid">
           <div class="p-field p-col-4">
             <label for="street">Street</label>
@@ -41,6 +45,7 @@
               >Street is required</small
             >
           </div>
+
           <div class="p-field p-col-4">
             <label for="street">Apartment</label>
             <input formControlName="apartment" id="apartment" type="text" pInputText />
@@ -48,6 +53,7 @@
               >Apartment is required</small
             >
           </div>
+
           <div class="p-field p-col-4">
             <label for="street">Zip Code</label>
             <input formControlName="zip" id="zip" type="text" pInputText />
@@ -55,6 +61,7 @@
               >Zip is required</small
             >
           </div>
+
           <div class="p-field p-col-4">
             <label for="city">City</label>
             <input formControlName="city" id="city" type="text" pInputText />
@@ -62,6 +69,7 @@
               >City is required</small
             >
           </div>
+
           <div class="p-field p-col-4">
             <label for="country">Country</label><br />
             <p-dropdown
@@ -81,6 +89,7 @@
         </div>
       </form>
     </div>
+
     <div class="p-col-4">
       <orders-order-summary></orders-order-summary>
       <div class="checkout-button">

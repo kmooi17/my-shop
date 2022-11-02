@@ -25,11 +25,11 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private categoriesService: CategoriesService,
     private formBuilder: FormBuilder,
     private location: Location,
-    private messageService: MessageService,
-    private route: ActivatedRoute
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +117,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   private _checkEditMode() {
-    this.route.params.pipe(takeUntil(this._endsubs$)).subscribe((params) => {
+    this.activatedRoute.params.pipe(takeUntil(this._endsubs$)).subscribe((params) => {
       if (params.id) {
         this.editmode = true;
         this.currentCategoryId = params.id;

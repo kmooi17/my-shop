@@ -1,24 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { MessagesComponent } from './shared/messages/messages.component';
+import { NavComponent } from './shared/nav/nav.component';
+
+import { AccordionModule } from 'primeng/accordion';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
+import { OrdersModule } from '@hast/orders';
 import { ProductsModule } from '@hast/products';
 import { UiModule } from '@hast/ui';
-import { AccordionModule } from 'primeng/accordion';
-import { NavComponent } from './shared/nav/nav.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { OrdersModule } from '@hast/orders';
-import { ToastModule } from 'primeng/toast';
-import { MessagesComponent } from './shared/messages/messages.component';
-import { MessageService } from 'primeng/api';
 import { JwtInterceptor, UsersModule } from '@hast/users';
+
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+
+// TODO: Remove this
 import { NgxStripeModule } from 'ngx-stripe';
 
 const routes: Routes = [{ path: '', component: HomePageComponent }];
@@ -26,26 +31,26 @@ const routes: Routes = [{ path: '', component: HomePageComponent }];
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
     HeaderComponent,
+    HomePageComponent,
     FooterComponent,
-    NavComponent,
-    MessagesComponent
+    MessagesComponent,
+    NavComponent
   ],
   imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    ProductsModule,
     AccordionModule,
     BrowserAnimationsModule,
-    UiModule,
+    BrowserModule,
+    EffectsModule.forRoot([]),
+    HttpClientModule,
     OrdersModule,
+    ProductsModule,
+    RouterModule.forRoot(routes),
+    StoreModule.forRoot({}),
     ToastModule,
+    UiModule,
     UsersModule,
-    // TODO: Get this from env
+    // TODO: Remove this
     NgxStripeModule.forRoot(
       'pk_test_51LyiMiIX9ERqxQ2tkdrJPOJGobMIl5Wdi4A1fahWW47PukDO0DMsn8wWwc4beI5PGBEZtrzf48s1iuWWhkTHnq2M00YgfUqXUu'
     )

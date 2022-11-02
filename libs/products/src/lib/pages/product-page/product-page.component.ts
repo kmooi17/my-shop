@@ -13,26 +13,22 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
   product: Product;
-  endSubs$: Subject<any> = new Subject();
   quantity = 1;
 
+  private _endSubs$: Subject<void> = new Subject();
+
   constructor(
-    private prodService: ProductsService,
-    private route: ActivatedRoute,
-    private cartService: CartService
+    private activatedRoute: ActivatedRoute,
+    private cartService: CartService,
+    private prodService: ProductsService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       if (params.productid) {
         this._getProduct(params.productid);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.endSubs$.next();
-    this.endSubs$.complete();
   }
 
   addProductToCart() {
@@ -47,9 +43,14 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   private _getProduct(id: string) {
     this.prodService
       .getProduct(id)
-      .pipe(takeUntil(this.endSubs$))
+      .pipe(takeUntil(this._endSubs$))
       .subscribe((resProduct) => {
         this.product = resProduct;
       });
+  }
+
+  ngOnDestroy(): void {
+    this._endSubs$.next();
+    this._endSubs$.complete();
   }
 }

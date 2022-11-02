@@ -18,9 +18,9 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
   private _endsubs$: Subject<void> = new Subject();
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private orderService: OrdersService,
-    private route: ActivatedRoute
+    private orderService: OrdersService
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
   }
 
   private _getOrder() {
-    this.route.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       if (params.id) {
         this.orderService
           .getOrder(params.id)

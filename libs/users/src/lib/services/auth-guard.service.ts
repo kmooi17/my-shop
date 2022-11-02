@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
 
   // TODO: Create roles guard to fix checkout login bug
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
     const token = this.localStorageToken.getToken();
 
     if (token) {

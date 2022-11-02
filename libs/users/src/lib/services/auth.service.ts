@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { environment } from '@env/environment';
+
 import { Observable } from 'rxjs';
-import { User } from '../models/user';
+
 import { LocalstorageService } from './localstorage.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'

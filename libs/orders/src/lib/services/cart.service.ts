@@ -17,6 +17,7 @@ export class CartService {
       const intialCart = {
         items: []
       };
+
       const intialCartJson = JSON.stringify(intialCart);
       localStorage.setItem(CART_KEY, intialCartJson);
     }
@@ -26,6 +27,7 @@ export class CartService {
     const intialCart = {
       items: []
     };
+
     const intialCartJson = JSON.stringify(intialCart);
     localStorage.setItem(CART_KEY, intialCartJson);
     this.cart$.next(intialCart);
@@ -40,14 +42,13 @@ export class CartService {
   setCartItem(cartItem: CartItem, updateCartItem?: boolean): Cart {
     const cart = this.getCart();
     const cartItemExist = cart.items.find((item) => item.productId === cartItem.productId);
+
     if (cartItemExist) {
       cart.items.map((item) => {
         if (item.productId === cartItem.productId) {
-          if (updateCartItem) {
-            item.quantity = cartItem.quantity;
-          } else {
-            item.quantity = item.quantity + cartItem.quantity;
-          }
+          updateCartItem
+            ? (item.quantity = cartItem.quantity)
+            : (item.quantity = item.quantity + cartItem.quantity);
 
           return item;
         }

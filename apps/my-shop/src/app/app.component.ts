@@ -6,8 +6,6 @@ import { UsersService } from '@hast/users';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  title = 'my-shop';
-
   constructor(private usersService: UsersService) {}
 
   ngOnInit() {

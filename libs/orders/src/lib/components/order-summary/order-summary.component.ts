@@ -11,13 +11,15 @@ import { OrdersService } from '../../services/orders.service';
   styles: []
 })
 export class OrderSummaryComponent implements OnInit, OnDestroy {
-  endSubs$: Subject<any> = new Subject();
-  totalPrice: number;
   isCheckout = false;
+  totalPrice: number;
+
+  private _endSubs$: Subject<void> = new Subject();
+
   constructor(
-    private router: Router,
     private cartService: CartService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private router: Router
   ) {
     this.router.url.includes('checkout') ? (this.isCheckout = true) : (this.isCheckout = false);
   }
@@ -26,14 +28,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy {
     this._getOrderSummary();
   }
 
-  ngOnDestroy(): void {
-    this.endSubs$.next();
-    this.endSubs$.complete();
-  }
-
   _getOrderSummary() {
-    this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe((cart) => {
+    this.cartService.cart$.pipe(takeUntil(this._endSubs$)).subscribe((cart) => {
       this.totalPrice = 0;
+
       if (cart) {
         cart.items.map((item) => {
           this.ordersService
@@ -49,5 +47,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy {
 
   navigateToCheckout() {
     this.router.navigate(['/checkout']);
+  }
+
+  ngOnDestroy(): void {
+    this._endSubs$.next();
+    this._endSubs$.complete();
   }
 }

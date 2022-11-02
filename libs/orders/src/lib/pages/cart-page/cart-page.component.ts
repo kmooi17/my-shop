@@ -13,26 +13,24 @@ import { OrdersService } from '../../services/orders.service';
 export class CartPageComponent implements OnInit, OnDestroy {
   cartItemsDetailed: CartItemDetailed[] = [];
   cartCount = 0;
-  endSubs$: Subject<any> = new Subject();
+
+  private _endSubs$: Subject<void> = new Subject();
+
   constructor(
-    private router: Router,
     private cartService: CartService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this._getCartDetails();
   }
 
-  ngOnDestroy() {
-    this.endSubs$.next();
-    this.endSubs$.complete();
-  }
-
   private _getCartDetails() {
-    this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe((respCart) => {
+    this.cartService.cart$.pipe(takeUntil(this._endSubs$)).subscribe((respCart) => {
       this.cartItemsDetailed = [];
       this.cartCount = respCart?.items.length ?? 0;
+
       respCart.items.forEach((cartItem) => {
         this.ordersService.getProduct(cartItem.productId).subscribe((respProduct) => {
           this.cartItemsDetailed.push({
@@ -60,5 +58,10 @@ export class CartPageComponent implements OnInit, OnDestroy {
       },
       true
     );
+  }
+
+  ngOnDestroy() {
+    this._endSubs$.next();
+    this._endSubs$.complete();
   }
 }

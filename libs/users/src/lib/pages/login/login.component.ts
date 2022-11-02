@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   // TODO: Add register page
   authError = false;
   authMessage = 'Email or Password are incorrect';
-  loginFormGroup: FormGroup;
   isSubmitted = false;
+  loginFormGroup: FormGroup;
 
   get loginForm() {
     return this.loginFormGroup.controls;
