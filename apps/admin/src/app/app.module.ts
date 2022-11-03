@@ -32,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CategoriesFormComponent } from './pages/categories/categories-form/categories-form.component';
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FeedbacksListComponent } from './pages/feedbacks/feedbacks-list/feedbacks-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
@@ -72,6 +73,7 @@ const UX_MODULE = [
     CategoriesFormComponent,
     CategoriesListComponent,
     DashboardComponent,
+    FeedbacksListComponent,
     OrdersListComponent,
     OrdersDetailComponent,
     ProductsFormComponent,

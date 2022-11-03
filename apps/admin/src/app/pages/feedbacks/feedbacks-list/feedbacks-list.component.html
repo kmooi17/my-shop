@@ -1,0 +1,44 @@
+<p-toast></p-toast>
+
+<div class="admin-page">
+  <p-card header="Feedback" subheader="List of all feedback">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-table *ngIf="feedback.length" [value]="feedback" styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="type">Type <p-sortIcon field="type"></p-sortIcon></th>
+              <th pSortableColumn="rating">Rating <p-sortIcon field="type"></p-sortIcon></th>
+              <th>Description</th>
+              <th pSortableColumn="user">From <p-sortIcon field="type"></p-sortIcon></th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-feedback>
+            <tr>
+              <td>{{ feedback.type }}</td>
+              <td>{{ feedback.rating }}</td>
+              <td>{{ feedback.description }}</td>
+              <td>{{ feedback.user.email }}</td>
+              <td>
+                <p-button
+                  (click)="deleteFeedback(feedback.id)"
+                  styleClass="p-button-danger p-mr-2"
+                  icon="pi pi-trash"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <p *ngIf="feedback.length === 0">No feedback yet</p>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

@@ -7,6 +7,7 @@ import { CategoriesFormComponent } from './pages/categories/categories-form/cate
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FeedbacksListComponent } from './pages/feedbacks/feedbacks-list/feedbacks-list.component';
 
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: 'categories/form/:id',
         component: CategoriesFormComponent
+      },
+      {
+        path: 'feedbacks',
+        component: FeedbacksListComponent
       },
       {
         path: 'products',
