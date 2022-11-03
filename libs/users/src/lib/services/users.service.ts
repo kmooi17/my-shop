@@ -73,4 +73,8 @@ export class UsersService {
   isCurrentUserAuth() {
     return this.usersFacade.isAuthenticated$;
   }
+
+  setUserFacade(user: Observable<User>): void {
+    this.usersFacade.currentUser$ = user;
+  }
 }

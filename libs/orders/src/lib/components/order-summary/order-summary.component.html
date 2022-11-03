@@ -17,7 +17,7 @@
     </div>
 
     <div class="checkout-button" *ngIf="!isCheckout">
-      <p-button label="Checkout" (onClick)="navigateToCheckout()"></p-button>
+      <p-button label="Checkout" (onClick)="navigateToCheckout()" [disabled]="totalPrice === 0"></p-button>
     </div>
   </div>
 </div>

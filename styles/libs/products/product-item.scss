@@ -1,4 +1,6 @@
 .product-item {
+  cursor: pointer;
+
   &-wrapper {
     background-color: var(--surface-200);
     border: 1px solid var(--surface-300);

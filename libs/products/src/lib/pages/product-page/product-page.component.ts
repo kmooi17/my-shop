@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartItem, CartService } from '@hast/orders';
@@ -20,7 +21,8 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private cartService: CartService,
-    private prodService: ProductsService
+    private prodService: ProductsService,
+    public location: Location
   ) {}
 
   ngOnInit(): void {

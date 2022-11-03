@@ -5,7 +5,7 @@
       "projectType": "application",
       "root": "apps/my-shop",
       "sourceRoot": "apps/my-shop/src",
-      "prefix": "hast",
+      "prefix": "my-shop",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -93,7 +93,7 @@
       "projectType": "application",
       "root": "apps/admin",
       "sourceRoot": "apps/admin/src",
-      "prefix": "hast",
+      "prefix": "admin",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

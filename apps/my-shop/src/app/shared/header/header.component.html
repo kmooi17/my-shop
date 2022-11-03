@@ -2,19 +2,23 @@
   <div class="p-grid">
     <div class="p-col-3">
       <div class="logo">
-        <img src="assets/images/logo.png" alt="logo" />
+        <img routerLink="/" src="assets/images/logo.png" alt="logo" />
       </div>
     </div>
+
     <div class="p-col-4 search">
       <!-- TODO: Version 2 -->
       <!-- <products-search></products-search> -->
     </div>
+
     <div class="p-col-3 p-offset-1 navigation">
       <my-shop-nav></my-shop-nav>
     </div>
+
     <div class="p-col-1 tools">
-      <i class="pi pi-user p-text-secondary" style="font-size: 1.5rem"></i>
-      <orders-cart-icon></orders-cart-icon>
+      <!-- TODO: Remove inline styles -->
+      <i class="pi pi-user p-text-secondary" style="font-size: 1.5rem; cursor: pointer;" routerLink="/profile"></i>
+      <orders-cart-icon style="cursor: pointer"></orders-cart-icon>
     </div>
   </div>
 </header>

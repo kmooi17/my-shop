@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { MessagesComponent } from './shared/messages/messages.component';
@@ -15,11 +16,15 @@ import { NavComponent } from './shared/nav/nav.component';
 
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
 import { MessageService } from 'primeng/api';
 import { RatingModule } from 'primeng/rating';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { OrdersModule } from '@hast/orders';
 import { ProductsModule } from '@hast/products';
@@ -34,7 +39,8 @@ import { NgxStripeModule } from 'ngx-stripe';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'feedback', canActivate: [AuthGuard], component: FeedbackComponent }
+  { path: 'feedback', canActivate: [AuthGuard], component: FeedbackComponent },
+  { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent }
 ];
 
 @NgModule({
@@ -45,18 +51,22 @@ const routes: Routes = [
     FeedbackComponent,
     FooterComponent,
     MessagesComponent,
-    NavComponent
+    NavComponent,
+    ProfileComponent
   ],
   imports: [
     AccordionModule,
     BrowserAnimationsModule,
     BrowserModule,
     ButtonModule,
+    CardModule,
     DropdownModule,
     EffectsModule.forRoot([]),
     FormsModule,
     HttpClientModule,
+    InputMaskModule,
     InputTextareaModule,
+    InputTextModule,
     OrdersModule,
     ProductsModule,
     RatingModule,
@@ -64,6 +74,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     StoreModule.forRoot({}),
     ToastModule,
+    ToolbarModule,
     UiModule,
     UsersModule,
     // TODO: Remove this

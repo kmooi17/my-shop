@@ -1,6 +1,16 @@
 <div class="product-page" *ngIf="product">
   <div class="p-grid">
     <div class="p-col-6">
+      <p-button
+        label="Continue shopping"
+        icon="pi pi-arrow-left"
+        (onClick)="location.back()"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="p-grid">
+    <div class="p-col-6">
       <ui-gallery [images]="product.images"></ui-gallery>
     </div>
 

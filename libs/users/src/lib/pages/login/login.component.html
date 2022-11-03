@@ -7,8 +7,12 @@
       </div>
 
       <div class="p-col-6 p-p-5">
-        <h3>Welcome!</h3>
+        <h3>Welcome back!</h3>
         <h2>Login</h2>
+
+        <!-- TODO: -->
+        <span>Don't have an account? </span>
+        <a>Create today!</a>
 
         <form [formGroup]="loginFormGroup">
           <div class="p-grid p-mt-6">
@@ -39,6 +43,9 @@
                 >Password is required
               </small>
             </div>
+
+            <!-- TODO: -->
+            <a>Forgot password?</a>
 
             <div class="p-col-12">
               <p-button label="Submit" styleClass="full-btn" (onClick)="onSubmit()"></p-button>

@@ -15,7 +15,7 @@
     </div>
 
     <div [ngClass]="{ 'p-col-9': !isCategoryPage, 'p-col-12': isCategoryPage }">
-      <div class="p-grid" *ngIf="products">
+      <div class="p-grid" *ngIf="products.length">
         <div
           [ngClass]="{ 'p-col-4': !isCategoryPage, 'p-col-3': isCategoryPage }"
           *ngFor="let product of products"
@@ -23,6 +23,7 @@
           <products-product-item [product]="product"></products-product-item>
         </div>
       </div>
+      <div *ngIf="products.length === 0">Looks like there are no products in this category</div>
     </div>
   </div>
 </div>
