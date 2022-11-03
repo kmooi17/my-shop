@@ -32,6 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'success',
+    canActivate: [AuthGuard],
     component: ThankYouComponent
   },
   {

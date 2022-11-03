@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private userService: UsersService
   ) {}
 
+  // TODO: Add feedback count
   ngOnInit(): void {
     combineLatest([
       this.ordersService.getOrdersCount(),

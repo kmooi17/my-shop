@@ -14,5 +14,5 @@ export class Product {
   rating?: number;
   numReviews?: number;
   isFeatured?: boolean;
-  dateCreated?: string;
+  dateCreated?: Date;
 }

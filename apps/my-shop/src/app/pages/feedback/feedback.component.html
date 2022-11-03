@@ -1,0 +1,43 @@
+<div class="p-grid feedback-form">
+  <div class="p-col-12">
+    <form [formGroup]="feedbackFormGroup">
+      <div class="p-field p-col-12">
+        <label for="type">Type</label><br />
+        <p-dropdown
+          id="type"
+          [options]="types"
+          formControlName="type"
+          optionLabel="name"
+          optionValue="id"
+          [filter]="true"
+          filterBy="name"
+          [showClear]="true"
+          placeholder="Select a Type"
+        ></p-dropdown>
+        <small *ngIf="feedbackForm.type.invalid && isSubmitted" class="p-error"
+          >Type is required</small
+        >
+      </div>
+
+      <div class="p-field p-col-12">
+        <p-rating formControlName="rating" id="rating" [cancel]="false"></p-rating>
+      </div>
+
+      <div class="p-field p-col-12">
+        <label for="description">Description</label><br />
+        <textarea
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          [rows]="7"
+          [cols]="30"
+        ></textarea>
+        <small *ngIf="feedbackForm.description.invalid && isSubmitted" class="p-error"
+          >Description is required</small
+        >
+      </div>
+    </form>
+
+    <p-button label="Submit Feedback" (onClick)="submitFeedback()"></p-button>
+  </div>
+</div>

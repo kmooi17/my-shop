@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
   styles: []
 })
 export class UsersFormComponent implements OnInit, OnDestroy {
-  countries = [];
+  countries: { id: string; name: string }[] = [];
   currentUserId: string;
   editmode = false;
   form: FormGroup;

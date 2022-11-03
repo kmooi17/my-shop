@@ -16,7 +16,7 @@ import { OrdersService } from '../../services/orders.service';
 })
 export class CheckoutPageComponent implements OnInit, OnDestroy {
   checkoutFormGroup: FormGroup;
-  countries = [];
+  countries: { id: string; name: string }[] = [];
   isSubmitted = false;
   orderItems: OrderItem[] = [];
   userId: string;
@@ -62,7 +62,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       phone: this.checkoutForm.phone.value,
       status: 0,
       user: this.userId,
-      dateOrdered: `${Date.now()}`
+      dateOrdered: new Date()
     };
 
     this.ordersService.setCacheOrderData(order);
