@@ -25,6 +25,10 @@ export class AuthService {
     return this.http.post<User>(`${this.apiURLUsers}/login`, { email, password });
   }
 
+  register(user: User): Observable<User> {
+    return this.http.post<User>(`${this.apiURLUsers}/register`, user);
+  }
+
   logout() {
     this.token.removeToken();
     this.router.navigate(['/login']);

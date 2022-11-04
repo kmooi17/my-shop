@@ -1,0 +1,84 @@
+<p-toast></p-toast>
+
+<div class="login-register">
+  <div class="login-register-panel">
+    <div class="p-grid">
+      <div class="p-col-6">
+        <!-- TODO: Change image -->
+        <img src="assets/images/login-photo.png" alt="login-photo" />
+      </div>
+
+      <div class="p-col-6 p-p-5">
+        <h3>Welcome to Every-Anything!</h3>
+        <h2>Register</h2>
+
+        <!-- TODO: -->
+        <span>Aready have an account? </span>
+        <a routerLink="/login">Login now!</a>
+
+        <form [formGroup]="registerFormGroup">
+          <div class="p-grid p-mt-6">
+            <div class="p-col-12">
+              <!-- TODO: Remove input groups everywhere -->
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" formControlName="name" pInputText placeholder="Full Name" />
+              </div>
+              <small *ngIf="registerForm.name.invalid && isSubmitted" class="p-error"
+                ><span *ngIf="registerForm.name.errors.required">Full Name is required</span>
+              </small>
+            </div>
+
+            <div class="p-col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" formControlName="email" pInputText placeholder="Email" />
+              </div>
+              <small *ngIf="registerForm.email.invalid && isSubmitted" class="p-error"
+                ><span *ngIf="registerForm.email.errors.required">Email is required</span>
+                <span *ngIf="registerForm.email.errors.email">Email is invalid</span></small
+              >
+            </div>
+
+            <div class="p-col-12">
+              <!-- <div class="p-inputgroup"> -->
+              <!-- <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span> -->
+              <p-inputMask
+                mask="(999) 999-9999"
+                formControlName="phone"
+                placeholder="(999) 999-9999"
+              ></p-inputMask>
+              <!-- </div> -->
+              <small *ngIf="registerForm.phone.invalid && isSubmitted" class="p-error"
+                >Phone is required</small
+              >
+            </div>
+
+            <div class="p-col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                <input
+                  type="password"
+                  formControlName="password"
+                  pInputText
+                  placeholder="Password"
+                />
+              </div>
+
+              <small *ngIf="registerForm.password.invalid && isSubmitted" class="p-error"
+                >Password is required
+              </small>
+            </div>
+
+            <div class="p-col-12">
+              <p-button label="Submit" styleClass="full-btn" (onClick)="onSubmit()"></p-button>
+            </div>
+            <div class="p-col-12" *ngIf="isSubmitted && authError">
+              <small class="p-error">{{ authMessage }}</small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

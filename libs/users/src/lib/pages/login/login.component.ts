@@ -11,7 +11,6 @@ import { LocalstorageService } from '../../services/localstorage.service';
   styles: []
 })
 export class LoginComponent implements OnInit {
-  // TODO: Add register page
   authError = false;
   authMessage = 'Email or Password are incorrect';
   isSubmitted = false;
